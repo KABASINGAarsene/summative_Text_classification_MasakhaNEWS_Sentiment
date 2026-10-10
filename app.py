@@ -16,6 +16,22 @@ DEFAULT_ID2LABEL = {
     6: "technology"
 }
 
+# Lightweight language detector for Hausa vs Swahili
+def detect_language(text):
+    words = set(text.lower().split())
+    swahili_markers = {'na', 'wa', 'ya', 'za', 'cha', 'vya', 'katika', 'kwa', 'ni', 'nchini', 'kuwa', 'kama', 'dhidi', 'yaibuka'}
+    hausa_markers = {'da', 'ta', 'ga', 'ne', 'ce', 'ba', 'wanda', 'yadda', 'kuma', 'cikin', 'don', 'wannan', 'sakamakon', 'gwamnatin'}
+    
+    swa_count = len(words.intersection(swahili_markers))
+    hau_count = len(words.intersection(hausa_markers))
+    
+    if swa_count > hau_count:
+        return "Swahili"
+    elif hau_count > swa_count:
+        return "Hausa"
+    else:
+        return "Hausa/Swahili"
+
 # Load model, tokenizer, and labels once into server memory
 @st.cache_resource
 def load_model():
@@ -94,9 +110,11 @@ if st.button("Classify Article", type="primary"):
             sorted_probs = sorted(prob_dict.items(), key=lambda x: x[1], reverse=True)
             
             top_label, top_prob = sorted_probs[0]
+            detected_lang = detect_language(user_input)
             
-            # Display primary prediction
+            # Display primary prediction (Green Box) and Language (Blue Info Box)
             st.success(f"**Predicted Category:** {top_label.upper()} (Confidence: {top_prob*100:.1f}%)")
+            st.info(f"**Detected Language:** {detected_lang}")
             
             st.divider()
             
