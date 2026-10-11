@@ -49,7 +49,7 @@ def load_model():
 tokenizer, model, label_mapping = load_model()
 
 # Page Configuration & Header
-st.set_page_config(page_title="AfriNews AI", page_icon="📰", layout="centered")
+st.set_page_config(page_title="AfriNews AI", layout="centered")
 
 st.title(" AfriNews AI: Multilingual Topic Classifier")
 st.markdown(
