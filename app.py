@@ -51,7 +51,7 @@ tokenizer, model, label_mapping = load_model()
 # Page Configuration & Header
 st.set_page_config(page_title="AfriNews AI", page_icon="📰", layout="centered")
 
-st.title("📰 AfriNews AI: Multilingual Topic Classifier")
+st.title(" AfriNews AI: Multilingual Topic Classifier")
 st.markdown(
     "Classify news articles in **Hausa** and **Swahili** across 7 editorial domains: "
     "*Business, Entertainment, Health, Politics, Religion, Sports, and Technology*."
